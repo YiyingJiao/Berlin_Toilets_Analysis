@@ -1,4 +1,9 @@
 
+-- Query 3: Percentage of WCs that are open 24 hours per Berlin district
+
+-- Question: In each Berlin district, what share of public WCs are open 24 hours?
+
+
 WITH opening_time AS (
 SELECT
     TRIM(Bezirk) as district,

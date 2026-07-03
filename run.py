@@ -2,23 +2,30 @@ import sys
 import sqlite3
 import pandas as pd
 
-# ── Plumbing: write once, never edit. ──
-# pandas reads your Excel file, then loads it into SQLite as a table
-# called "Berlin Toilets". Your SQL then runs against that table.
-# source of the data : https://daten.berlin.de/datensaetze/toiletten
-# linke to file:https://www.berlin.de/sen/uvk/_assets/verkehr/infrastruktur/oeffentliche-toiletten/berliner-toiletten-standorte.xlsx?ts=1753174745
+# source of the data for toilets: https://daten.berlin.de/datensaetze/toiletten
+# link to file: https://www.berlin.de/sen/uvk/_assets/verkehr/infrastruktur/oeffentliche-toiletten/berliner-toiletten-standorte.xlsx?ts=1753174745
 # date of the data: July 17, 2025
 
+# source of the data for population:https://www.statistik-berlin-brandenburg.de/a-i-5-hj
+# link to file: https://download.statistik-berlin-brandenburg.de/77af5b36036a22b7/8eb01f34d064/SB_A01-05-00_2025h02_BE.xlsx
+# date of the data: December 31, 2025
 
-#load the data
-df = pd.read_excel("berliner-toiletten-standorte.xlsx")
+
+#load the two data sources as dataframes
+toilet_df = pd.read_excel("berliner-toiletten-standorte.xlsx")
+pop_df = pd.read_csv("population.csv")
 
 #load the query
 sql_file = sys.argv[1]
-#sql_file = sys.argv[1] if len(sys.argv) > 1 else "01_count_by_district.sql"
-con = sqlite3.connect(":memory:")                          # start SQLite (in memory)
-df.to_sql("berlin_toilets", con, index=False)                     # load data as table "toilets"
- 
+
+# start SQLite (in memory), not saved to disk
+con = sqlite3.connect(":memory:")      
+
+# load the two dataframes as table "berlin_toilets" and "population"
+toilet_df.to_sql("berlin_toilets", con, index=False)
+pop_df.to_sql("population", con, index=False)
+
+
 with open(sql_file) as q:
     query = q.read()
 

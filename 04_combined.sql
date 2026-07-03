@@ -1,3 +1,7 @@
+-- Query 4: Percentage of WCs that are BOTH step-free(barrierefrei)
+-- and open 24 hours per Berlin district
+-- Question: In each Berlin district, what share of public WCs
+-- are BOTH step-free (barrierefrei) and open 24 hours?
 SELECT
     TRIM(Bezirk) as districts,
     

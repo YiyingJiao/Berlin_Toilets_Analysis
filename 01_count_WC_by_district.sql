@@ -1,5 +1,6 @@
--- Query 1: Toilet count by district
--- Question: How many public toilets does each Berlin district have?
+-- Query 1: WC count by district in Berlin
+-- Question: How many public WCs does each Berlin district have?
+
 
 -- district names some of them have spaces, trim to get rid of empty spaces
 Select
@@ -15,13 +16,12 @@ FROM berlin_toilets
 -- Hence we only want WC
 
 WHERE TRIM(Symbol) = 'WC'
--- group by happens first before select in actual run time
--- for group by, always use native name as good practice  
+
 
 GROUP BY  TRIM(Bezirk)
 
 
 
-ORDER By "number of toilets" DESC;
+ORDER By "number of WC" DESC;
 
 

@@ -1,3 +1,7 @@
+-- Query 5: Number of public WCs per 100,000 residents per Berlin district
+-- Question: When adjusted for population size, which Berlin districts
+-- are most and least served by public WCs?
+
 WITH toilet_counts AS (
     SELECT
         TRIM(Bezirk)  AS district,
